@@ -1,3 +1,4 @@
+
 // Converts from degrees to radians.
 
 function toRadians(degrees) {
@@ -16,7 +17,7 @@ function toRadians(degrees) {
  
   // Computes distance between two geo coordinates in kilometers.
  
-  function computeDistance(lat1, lon1, lat2, lon2) {
+  export function computeDistance(lat1, lon1, lat2, lon2) {
  
     console.log(`p1={${lat1},${lon1}} p2={${lat2},${lon2}}`);
  
@@ -41,14 +42,14 @@ function toRadians(degrees) {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
  
     var d = R * c;
- 
+    console.log("Succesfully executed CalculateDistance");
     return `${round(d, 3)} km`;
  
   }
  
   // Computes bearing between two geo coordinates in degrees.
  
-  function computeBearing(startLat, startLng, destLat, destLng) {
+ export function computeBearing(startLat, startLng, destLat, destLng) {
  
     startLat = toRadians(startLat);
  
@@ -74,7 +75,7 @@ function toRadians(degrees) {
  
   }
  
-  function round(value, decimals) {
+ export function round(value, decimals) {
  
     return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
  

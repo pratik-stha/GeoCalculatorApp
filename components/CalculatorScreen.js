@@ -1,10 +1,10 @@
 import React,{useState}from 'react';
 import {StyleSheet, Text, View,TextInput} from 'react-native';
 import {Button,Input} from 'react-native-elements';
-import methods from './methods';
+import {computeDistance,computeBearing} from '../Methods';
 
 const CalculatorScreen = ()=>{
-    const [state,setState] = useState({latA:'',latB:'',lonA:'',longB:'',result:''});
+    const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:'',result:''});
     
     const updateState =(vals)=>{
        
@@ -16,14 +16,6 @@ const CalculatorScreen = ()=>{
             }
         );
     };
-
-    const compute=()=>{
-        var a=parseFloat(state.latA);
-        var b=parseFloat(state.lonA);
-        var c = a+b;
-        return c;
-    
-    }
 
     const checkValidation=(num)=>
     {
@@ -89,7 +81,7 @@ const CalculatorScreen = ()=>{
             <Button title = "Calculate"
             onPress = {()=>
             {
-                updateState({result: compute()});
+                updateState({result: computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB))});
                
             }
            } />
@@ -97,7 +89,7 @@ const CalculatorScreen = ()=>{
             <Button title = "Clear"
                     onPress = {()=>
                     { 
-                            updateState({result: compute()});           
+                            updateState({latA:'',latB:'',lonA:'',lonB:'',result:''});           
                     }
                 } />
         </View>
