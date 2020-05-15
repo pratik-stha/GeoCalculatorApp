@@ -27,8 +27,13 @@ const CalculatorScreen = ()=>{
 
     const checkValidation=(num)=>
     {
-        if(isNaN(parseFloat(num))){
+        if(isNaN(num)){
             return 'Must be a number';
+        }
+
+        else{
+            
+            return 'Is a number';
         }
 
     }
@@ -41,17 +46,16 @@ const CalculatorScreen = ()=>{
                     type="number" 
                     pattern="[0-9]*" 
                     inputmode="numeric" 
-                    onChangeText={(val)=>{
-                        if(isNaN(val)){
-                            let msg = 'Must be a NUmber';
-                        }
-                        else{
-                             updateState({latA:val});       
-                        }
+                    onChangeText={(val)=>                        
+                        {
+                            updateState({latA:val});
+                            var msg = checkValidation(val);
+                            console.log(msg);
+                         }
                     }
-                }
-                                        
+                              
                     value={state.latA}
+
                     
                     
             />
