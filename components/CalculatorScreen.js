@@ -33,7 +33,7 @@ const CalculatorScreen = ()=>{
 
         else{
             
-            return 'Is a number';
+            return '';
         }
 
     }
@@ -53,7 +53,7 @@ const CalculatorScreen = ()=>{
                             console.log(msg);
                          }
                     }
-                              
+                    errorMessage={checkValidation(state.latA)}          
                     value={state.latA}
 
                     
@@ -65,6 +65,7 @@ const CalculatorScreen = ()=>{
                     inputmode="numeric" 
                     onChangeText={(val)=>updateState({lonA:val})}
                     value={state.lonA}
+                    errorMessage={checkValidation(state.lonA)}  
             />
 
             <Input  placeholder='Enter the latitude of point B' 
@@ -73,6 +74,7 @@ const CalculatorScreen = ()=>{
                     inputmode="numeric" 
                     onChangeText={(val)=>updateState({latB:val})} 
                     value={state.latB}
+                    errorMessage={checkValidation(state.latB)}  
             />
 
             <Input  placeholder='Enter the longitude of point B' 
@@ -81,6 +83,7 @@ const CalculatorScreen = ()=>{
                     inputmode="numeric" 
                     onChangeText={(val)=>updateState({lonB:val})}
                     value={state.lonB}
+                    errorMessage={checkValidation(state.lonB)}  
             />
 
             <Button title = "Calculate"
