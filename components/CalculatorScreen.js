@@ -1,10 +1,10 @@
 import React,{useState}from 'react';
 import {StyleSheet, Text, View,TextInput} from 'react-native';
 import {Button,Input} from 'react-native-elements';
-import {computeDistance,computeBearing} from '../Methods';
+import {computeDistance,computeBearing, check_error} from '../Methods';
 
 const CalculatorScreen = ()=>{
-    const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:'',result:''});
+    const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});
     
     const updateState =(vals)=>{
        
@@ -32,7 +32,6 @@ const CalculatorScreen = ()=>{
 
     return(
         <View style={styles.container}>
-            <Text>  {state.result} </Text>
 
             <Input  placeholder='Enter the latitude of point A' 
                     type="number" 
@@ -81,7 +80,20 @@ const CalculatorScreen = ()=>{
             <Button title = "Calculate"
             onPress = {()=>
             {
-                updateState({result: computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB))});
+                if(check_error(state.latA,state.latB,state.lonA,state.lonB)){
+                     
+                    updateState({
+                        DistanceResult: computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB)),
+                        BearingResult: computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB))
+                    
+                    });
+
+                }
+                else{
+                    updateState({ DistanceResult:'INVALID DATA',
+                                  BearingResult:'INVALID DATA'  
+                })
+                }
                
             }
            } />
@@ -89,9 +101,13 @@ const CalculatorScreen = ()=>{
             <Button title = "Clear"
                     onPress = {()=>
                     { 
-                            updateState({latA:'',latB:'',lonA:'',lonB:'',result:''});           
+                            updateState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});           
                     }
                 } />
+
+                
+            <Text>Distance: {state.DistanceResult} </Text>
+            <Text>Bearing Angle: {state.BearingResult} </Text>
         </View>
     );
 
