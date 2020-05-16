@@ -1,6 +1,6 @@
 
 export function check_error(lat1,lon1,lat2,lon2){
-  if(isNaN(lat1) || isNaN(lat2) || isNaN(lon1) || isNaN(lon2) )
+  if(isNaN(lat1) || isNaN(lat2) || isNaN(lon1) || isNaN(lon2) || lat1==='' || lat2==='' || lon2==='' || lon1==='')
       {
           return false; 
       }
@@ -54,7 +54,7 @@ function toRadians(degrees) {
  
     var d = R * c;
     console.log("Succesfully executed CalculateDistance");
-    return `${round(d, 3)} km`;
+    return `${(round(d, 3)).toFixed(3)} km`;
  
   }
  
@@ -82,7 +82,7 @@ function toRadians(degrees) {
  
     brng = toDegrees(brng);
  
-    return (brng + 360) % 360;
+    return (`${((brng + 360) % 360).toFixed(3)} Degrees`);
  
   }
  

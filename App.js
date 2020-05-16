@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import CalculatorScreen from './components/CalculatorScreen';
+import {Button} from 'react-native-elements';
 
 export default function App() {
 
@@ -12,6 +13,9 @@ export default function App() {
 
      </SafeAreaView>
    </TouchableWithoutFeedback>
+
+
+
  );
 }
 

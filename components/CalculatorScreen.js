@@ -1,5 +1,5 @@
 import React,{useState}from 'react';
-import {StyleSheet, Text, View,TextInput} from 'react-native';
+import {StyleSheet, Text, View,TextInput,Keyboard} from 'react-native';
 import {Button,Input} from 'react-native-elements';
 import {computeDistance,computeBearing, check_error} from '../Methods';
 
@@ -87,21 +87,25 @@ const CalculatorScreen = ()=>{
                         BearingResult: computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB))
                     
                     });
+                    Keyboard.dismiss();
 
                 }
                 else{
                     updateState({ DistanceResult:'INVALID DATA',
                                   BearingResult:'INVALID DATA'  
-                })
+                });
+                Keyboard.dismiss();
                 }
                
             }
            } />
 
+
             <Button title = "Clear"
                     onPress = {()=>
                     { 
-                            updateState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});           
+                            updateState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});
+                            Keyboard.dismiss();           
                     }
                 } />
 
