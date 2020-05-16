@@ -2,10 +2,10 @@
 export function check_error(lat1,lon1,lat2,lon2){
   if(isNaN(lat1) || isNaN(lat2) || isNaN(lon1) || isNaN(lon2) )
       {
-          return true; 
+          return false; 
       }
   else{
-        return false;
+        return true;
       }    
 
 
