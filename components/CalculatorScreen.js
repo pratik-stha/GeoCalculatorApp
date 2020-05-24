@@ -1,11 +1,19 @@
-import React,{useState}from 'react';
-import {StyleSheet, Text, View,TextInput,Keyboard} from 'react-native';
+import React,{useState, useEffect}from 'react';
+import {StyleSheet, Text, View,TextInput,Keyboard, TouchableOpacity} from 'react-native';
 import {Button,Input} from 'react-native-elements';
 import {computeDistance,computeBearing, check_error} from '../Methods';
+import { AntDesign } from '@expo/vector-icons';
 
-const CalculatorScreen = ()=>{
+
+const CalculatorScreen = ({route,navigation})=>{
     const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});
     
+
+    const [distanceUnit,setdistanceUnit]=useState('Km');
+    const [bearingUnit,setbearingUnit] = useState('Deg');
+
+    console.log(route.params);
+
     const updateState =(vals)=>{
        
         setState(
@@ -29,6 +37,32 @@ const CalculatorScreen = ()=>{
         }
 
     }
+
+  
+
+    navigation.setOptions(
+        {
+            headerRight:()=>(
+                    <TouchableOpacity onPress = {()=>{navigation.navigate('Settings',{distanceUnit,bearingUnit})}}>
+                    <AntDesign style={{marginRight:20}} name="setting" size={24} color="black" />
+                    </TouchableOpacity>
+            )
+        }
+
+
+    );
+   
+    useEffect(() => {
+        console.log('Profile: called anytime a specific state variable changes')
+        if (route.params?.distanceUnit) {
+          setdistanceUnit(route.params.distanceUnit)
+        }
+        if (route.params?.bearingUnit) {
+          setbearingUnit(route.params.bearingUnit);
+        }
+      }, [route.params?.distanceUnit, route.params?.bearingUnit]);
+    
+
 
     return(
         <View style={styles.container}>
@@ -125,7 +159,7 @@ const styles = StyleSheet.create(
 
         margin :20,
         
-    }
+    },
 
 });
 
