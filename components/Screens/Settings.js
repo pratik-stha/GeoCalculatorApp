@@ -5,22 +5,29 @@ import { Dropdown } from 'react-native-material-dropdown';
 
 
 const SettingScreen=({route,navigation})=>{
-    
-  const [distanceUnit,setDistanceUnit] = useState();
-  const [bearingUnit,setBearingUnit] = useState();
-
+  
+  console.log('In Settings page:');
   console.log(route.params);
+  
+  const initialDistanceUnit = route.params.distanceUnit;
+  const initialBearingUnit = route.params.bearingUnit;
+  
+  console.log(initialDistanceUnit);
+  console.log(initialBearingUnit);
+
+  const [distanceUnit,setDistanceUnit] = useState(initialDistanceUnit);
+  const [bearingUnit,setBearingUnit] = useState(initialBearingUnit);
 
  let DistanceUnit = [{
-    value: 'Km',
+    value: "Km",
   }, {
-    value: 'Mi',
+    value: "Mi",
   }];
 
   let BearingUnit = [{
-    value: 'Deg',
+    value: "Deg",
   }, {
-    value: 'Mils',
+    value: "Mils",
   }];
     
     
@@ -45,9 +52,9 @@ const SettingScreen=({route,navigation})=>{
         <View>
       
              <Text> Welcome to Setting Screen</Text>
-             <Dropdown label='Distance Unit' data={DistanceUnit} onChangeText={(Vali)=>setDistanceUnit(Vali)}/>
-             <Dropdown label='Bearing Angle Unit' data={BearingUnit} onChangeText={(Vali)=>setBearingUnit(Vali)}/>
-             <Text>You Selected</Text>
+             <Dropdown label='Distance Unit' data={DistanceUnit} value={distanceUnit} onChangeText={(Vali)=>setDistanceUnit(Vali)}/>
+             <Dropdown label='Bearing Angle Unit' data={BearingUnit} value={bearingUnit} onChangeText={(Vali)=>setBearingUnit(Vali)}/>
+    <Text>You Selected {distanceUnit} and {bearingUnit}</Text>
         </View>
 
 

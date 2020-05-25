@@ -28,7 +28,7 @@ function toRadians(degrees) {
  
   // Computes distance between two geo coordinates in kilometers.
  
-  export function computeDistance(lat1, lon1, lat2, lon2) {
+  export function computeDistance(lat1, lon1, lat2, lon2 , unit) {
  
     console.log(`p1={${lat1},${lon1}} p2={${lat2},${lon2}}`);
  
@@ -54,13 +54,17 @@ function toRadians(degrees) {
  
     var d = R * c;
     console.log("Succesfully executed CalculateDistance");
+    if(unit === "Mi")
+    {
+      return `${((round(d, 3)) *  0.621371).toFixed(3)} Miles`;  
+    }
     return `${(round(d, 3)).toFixed(3)} km`;
  
   }
  
   // Computes bearing between two geo coordinates in degrees.
  
- export function computeBearing(startLat, startLng, destLat, destLng) {
+ export function computeBearing(startLat, startLng, destLat, destLng, unit) {
  
     startLat = toRadians(startLat);
  
@@ -81,7 +85,10 @@ function toRadians(degrees) {
     var brng = Math.atan2(y, x);
  
     brng = toDegrees(brng);
- 
+    if(unit === "Mils")
+    {
+      return (`${(((brng + 360) % 360)*17.777777777778).toFixed(3)} Mils`);
+    }
     return (`${((brng + 360) % 360).toFixed(3)} Degrees`);
  
   }

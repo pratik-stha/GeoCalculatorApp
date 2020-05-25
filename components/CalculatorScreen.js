@@ -6,13 +6,16 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 const CalculatorScreen = ({route,navigation})=>{
+    console.log('In Calculator page: ');
+    console.log(route.params);
+
     const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});
     
 
-    const [distanceUnit,setdistanceUnit]=useState('Km');
-    const [bearingUnit,setbearingUnit] = useState('Deg');
+    const [distanceUnit,setdistanceUnit]=useState("Km");
+    const [bearingUnit,setbearingUnit] = useState("Deg");
 
-    console.log(route.params);
+    
 
     const updateState =(vals)=>{
        
@@ -60,6 +63,8 @@ const CalculatorScreen = ({route,navigation})=>{
         if (route.params?.bearingUnit) {
           setbearingUnit(route.params.bearingUnit);
         }
+       console.log('This is being called');
+
       }, [route.params?.distanceUnit, route.params?.bearingUnit]);
     
 
@@ -117,8 +122,8 @@ const CalculatorScreen = ({route,navigation})=>{
                 if(check_error(state.latA,state.latB,state.lonA,state.lonB)){
                      
                     updateState({
-                        DistanceResult: computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB)),
-                        BearingResult: computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB))
+                        DistanceResult: computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),distanceUnit),
+                        BearingResult: computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),bearingUnit)
                     
                     });
                     Keyboard.dismiss();
