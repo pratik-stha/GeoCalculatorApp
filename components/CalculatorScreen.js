@@ -5,17 +5,22 @@ import {computeDistance,computeBearing, check_error} from '../Methods';
 import { AntDesign } from '@expo/vector-icons';
 
 
+
+let Flag =false;
+
 const CalculatorScreen = ({route,navigation})=>{
     console.log('In Calculator page: ');
     console.log(route.params);
 
-    const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});
-    
+    const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:''});
+    const [dist,setDist] = useState();
+    const [angl,setAngl] = useState();
 
     const [distanceUnit,setdistanceUnit]=useState("Km");
     const [bearingUnit,setbearingUnit] = useState("Deg");
 
-    
+   
+ 
 
     const updateState =(vals)=>{
        
@@ -55,6 +60,7 @@ const CalculatorScreen = ({route,navigation})=>{
 
     );
    
+    
     useEffect(() => {
         console.log('Profile: called anytime a specific state variable changes')
         if (route.params?.distanceUnit) {
@@ -63,10 +69,29 @@ const CalculatorScreen = ({route,navigation})=>{
         if (route.params?.bearingUnit) {
           setbearingUnit(route.params.bearingUnit);
         }
-       console.log('This is being called');
+            Flag = true;
+            console.log(Flag);
+         }, [route.params?.distanceUnit, route.params?.bearingUnit]);
+  
+    console.log(Flag);     
+     if(Flag){
+        if(check_error(state.latA,state.latB,state.lonA,state.lonB)){
+                     
+                    
+            setDist(computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),distanceUnit));
+            setAngl(computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),bearingUnit));
+            Keyboard.dismiss();
 
-      }, [route.params?.distanceUnit, route.params?.bearingUnit]);
-    
+         }
+         else{
+            setDist('INVALID');
+            setAngl('INVALID');
+         Keyboard.dismiss();
+         }
+        console.log(distanceUnit,bearingUnit);
+        Flag = false;
+    }  
+
 
 
     return(
@@ -121,18 +146,15 @@ const CalculatorScreen = ({route,navigation})=>{
             {
                 if(check_error(state.latA,state.latB,state.lonA,state.lonB)){
                      
-                    updateState({
-                        DistanceResult: computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),distanceUnit),
-                        BearingResult: computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),bearingUnit)
                     
-                    });
-                    Keyboard.dismiss();
+                   setDist(computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),distanceUnit));
+                   setAngl(computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),bearingUnit));
+                   Keyboard.dismiss();
 
                 }
                 else{
-                    updateState({ DistanceResult:'INVALID DATA',
-                                  BearingResult:'INVALID DATA'  
-                });
+                   setDist('INVALID');
+                   setAngl('INVALID');
                 Keyboard.dismiss();
                 }
                
@@ -144,13 +166,16 @@ const CalculatorScreen = ({route,navigation})=>{
                     onPress = {()=>
                     { 
                             updateState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});
+                            setDist();
+                            setAngl();
                             Keyboard.dismiss();           
                     }
                 } />
 
                 
-            <Text>Distance: {state.DistanceResult} </Text>
-            <Text>Bearing Angle: {state.BearingResult} </Text>
+            <Text>Distance: {dist} </Text>
+            <Text>Bearing Angle: {angl} </Text>
+            <Text>The selected units are {distanceUnit} and {bearingUnit}</Text>
         </View>
     );
 
