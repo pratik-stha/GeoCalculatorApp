@@ -36,31 +36,45 @@ const SettingScreen=({route,navigation})=>{
             
             headerLeft:()=>(
                 <TouchableOpacity onPress = {()=>{navigation.navigate('Geo Calculator',{distanceUnit,bearingUnit})}}>
-             <AntDesign style={{marginLeft:20}} name="save" size={24} color="black" />
+             <AntDesign style={{marginLeft:20}} name="save" size={24} color="white" />
                </TouchableOpacity>
             ),
 
             headerRight:()=>(
                     <TouchableOpacity title='Cancel' onPress = {()=>{navigation.navigate('Geo Calculator')}}>
-                    <AntDesign style={{marginRight:20}} name="closecircleo" size={24} color="black" />
+                    <AntDesign style={{marginRight:20}} name="closecircleo" size={24} color="white" />
                    </TouchableOpacity>
                   )
         }
     );
 
     return (
-        <View>
+        <View style={styles.container}>
       
-             <Text> Welcome to Setting Screen</Text>
+             <Text style={{textAlign:'center'}}> Welcome to Setting Screen</Text>
+             <View style={styles.dropDownStyle}>
              <Dropdown label='Distance Unit' data={DistanceUnit} value={distanceUnit} onChangeText={(Vali)=>setDistanceUnit(Vali)}/>
              <Dropdown label='Bearing Angle Unit' data={BearingUnit} value={bearingUnit} onChangeText={(Vali)=>setBearingUnit(Vali)}/>
-    <Text>You Selected {distanceUnit} and {bearingUnit}</Text>
+             </View>
+    <Text style={{textAlign:'center'}}>You Selected {distanceUnit} and {bearingUnit}</Text>
         </View>
 
 
     );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+
+  container:{
+    flex:1,
+    margin :0,
+    backgroundColor: "#cce0f7",
+    },
+
+    dropDownStyle:{
+      marginLeft:15,
+      marginRight:15,
+      }
+});
 
 export default SettingScreen;

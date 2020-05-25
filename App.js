@@ -16,9 +16,9 @@ export default function App() {
   <SafeAreaView style={styles.container} >
   <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="Geo Calculator" component={CalculatorScreen} options={{headerTitleStyle:{alignSelf:'center'},}} />
+      <Stack.Screen name="Geo Calculator" component={CalculatorScreen} options={{ title:'Geo Calculator',headerStyle:{backgroundColor:'#264391'} ,headerTitleStyle:{color:'white',textAlign:'center', alignSelf: 'center'}}} />
     
-      <Stack.Screen name="Settings" component={SettingScreen} options={{headerTitleStyle:{alignSelf:'center'},}}/>
+      <Stack.Screen name="Settings" component={SettingScreen} options={{ title:'Settings',headerStyle:{backgroundColor:'#264391'} ,headerTitleStyle:{color:'white',textAlign:'center', alignSelf: 'center'}}}/>
     
       </Stack.Navigator>
     </NavigationContainer>
@@ -32,8 +32,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
  container: {
-   backgroundColor: "#fff",
-   margin: 1,
-   flex: 1
+  
+  backgroundColor: "#cce0f7",
+  flex: 1
+
  },
 });

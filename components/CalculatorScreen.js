@@ -52,7 +52,7 @@ const CalculatorScreen = ({route,navigation})=>{
         {
             headerRight:()=>(
                     <TouchableOpacity onPress = {()=>{navigation.navigate('Settings',{distanceUnit,bearingUnit})}}>
-                    <AntDesign style={{marginRight:20}} name="setting" size={24} color="black" />
+                    <AntDesign style={{marginRight:20}} name="setting" size={24} color="white" />
                     </TouchableOpacity>
             )
         }
@@ -96,7 +96,7 @@ const CalculatorScreen = ({route,navigation})=>{
 
     return(
         <View style={styles.container}>
-
+            <View style={styles.inputArea}>
             <Input  placeholder='Enter the latitude of point A' 
                     type="number" 
                     pattern="[0-9]*" 
@@ -140,8 +140,11 @@ const CalculatorScreen = ({route,navigation})=>{
                     value={state.lonB}
                     errorMessage={checkValidation(state.lonB)}  
             />
+            </View>
 
+            <View    style = {styles.CalButton}>
             <Button title = "Calculate"
+         
             onPress = {()=>
             {
                 if(check_error(state.latA,state.latB,state.lonA,state.lonB)){
@@ -160,9 +163,11 @@ const CalculatorScreen = ({route,navigation})=>{
                
             }
            } />
+           </View>
 
-
+          <View style={styles.clearButton}>
             <Button title = "Clear"
+                    style = {{width:20}}
                     onPress = {()=>
                     { 
                             updateState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});
@@ -171,11 +176,22 @@ const CalculatorScreen = ({route,navigation})=>{
                             Keyboard.dismiss();           
                     }
                 } />
+            </View>
 
-                
-            <Text>Distance: {dist} </Text>
-            <Text>Bearing Angle: {angl} </Text>
-            <Text>The selected units are {distanceUnit} and {bearingUnit}</Text>
+            <View style={styles.resultstyle}>    
+                    <View style={{flexDirection:'row'}}>
+                            <Text style={{flex:1,borderWidth:2,textAlign:'center'}}>Distance:</Text>
+                            <Text style={{flex:1,borderWidth:1.5,textAlign:'center'}}>{dist}</Text>
+                            
+                    </View>   
+                    <View style={{flexDirection:'row'}}>  
+                        <Text style={{flex:1,borderWidth:2,textAlign:'center'}}>Bearing Angle: </Text>  
+                        <Text style={{flex:1,borderWidth:2,textAlign:'center'}}>{angl} </Text>
+                    </View>
+                              
+                            
+            </View>
+                 <Text style={{textAlign:'center',marginTop:10}}>The selected units are {distanceUnit} and {bearingUnit}</Text>
         </View>
     );
 
@@ -186,10 +202,36 @@ const CalculatorScreen = ({route,navigation})=>{
 const styles = StyleSheet.create(
 {
     container:{
-
-        margin :20,
+        flex:1,
+        backgroundColor: "#cce0f7",
         
     },
+    inputArea:{
+        marginTop:15,
+        textDecorationColor:'black',
+
+    },
+
+    CalButton:{
+        marginLeft:10,
+        marginRight:15,
+    },
+
+    clearButton:{
+        marginLeft:10,
+        marginRight:15,
+        marginTop:10,
+    },
+
+    resultstyle:{
+        marginTop:15,
+        marginLeft:25,
+        marginRight:25,
+    }
+    
+
+
+    
 
 });
 
