@@ -180,13 +180,13 @@ const CalculatorScreen = ({route,navigation})=>{
 
             <View style={styles.resultstyle}>    
                     <View style={{flexDirection:'row'}}>
-                            <Text style={{flex:1,borderWidth:2,textAlign:'center'}}>Distance:</Text>
-                            <Text style={{flex:1,borderWidth:1.5,textAlign:'center'}}>{dist}</Text>
+                            <Text style={{flex:1,borderTopWidth:1,borderLeftWidth:1,borderBottomWidth:1, textAlign:'center'}}>Distance:</Text>
+                            <Text style={{flex:1,borderTopWidth:1,borderBottomWidth:1,borderLeftWidth:1,borderRightWidth:1, textAlign:'center'}}>{dist}</Text>
                             
                     </View>   
                     <View style={{flexDirection:'row'}}>  
-                        <Text style={{flex:1,borderWidth:2,textAlign:'center'}}>Bearing Angle: </Text>  
-                        <Text style={{flex:1,borderWidth:2,textAlign:'center'}}>{angl} </Text>
+                        <Text style={{flex:1,borderLeftWidth:1,borderBottomWidth:1,textAlign:'center'}}>Bearing Angle: </Text>  
+                        <Text style={{flex:1,borderLeftWidth:1,borderRightWidth:1,borderBottomWidth:1,textAlign:'center'}}>{angl} </Text>
                     </View>
                               
                             

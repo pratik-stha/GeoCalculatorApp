@@ -1,0 +1,71 @@
+[33mcommit 8f04b3698c9d197df794ddffa7704aee82390231[m[33m ([m[1;36mHEAD -> [m[1;32mGeoAppSettings[m[33m, [m[1;31morigin/GeoAppSettings[m[33m)[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Mon May 25 02:36:20 2020 -0400
+
+    Done with Final styling
+
+[33mcommit 56269ec595bdd6247130c5a8677bcc79556e4f57[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Mon May 25 00:31:46 2020 -0400
+
+    Save button now changes the Result
+
+[33mcommit 2ecb071c200c0ee9b45863ac9a5f9c7cbb2a5a9b[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Sun May 24 20:37:10 2020 -0400
+
+    Unit history save works
+
+[33mcommit 65153e54d3334edfb59aac93d7cd4c700cb7a10b[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Sun May 24 19:24:00 2020 -0400
+
+    Settings screen added and passed distanceUnit and bearingUnit
+
+[33mcommit fe2c929e56a9d4f3d0d622be666606b3af5f7728[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Fri May 15 20:37:41 2020 -0400
+
+    Error Check Fixed-Rounding added-Keyboard dismissal added
+
+[33mcommit 8e4e004c57a5f1b9f8abd2692f02f91411d6d5c0[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Fri May 15 20:00:03 2020 -0400
+
+    Error Check Implemented (Corrected)
+
+[33mcommit 0d6d216c10ae10693a142783f12051c2deac2e47[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Fri May 15 19:32:31 2020 -0400
+
+    Error Check Implemented
+
+[33mcommit dffa4c8091aa34489392c3fbeeb6f5bd8597f3b3[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Fri May 15 14:30:16 2020 -0400
+
+    works fine with computedDistance and clear button
+
+[33mcommit 1863f57dfa5c7da7f6f0f0871857ccfb4dd356a9[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Fri May 15 01:19:46 2020 -0400
+
+    Validation working
+
+[33mcommit f43fb00797800bd07e53d5b73ab27de3db846333[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Fri May 15 01:03:04 2020 -0400
+
+    validation in console works
+
+[33mcommit 6e53e70a3db619bbff8c51927e89ff68b73f025d[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Fri May 15 00:33:24 2020 -0400
+
+    WOrks with float and UI done
+
+[33mcommit 97f4b3c0326da8b21fa297d83b6218209021be63[m
+Author: pratik-stha <pratikstha440@gmail.com>
+Date:   Wed May 13 20:38:13 2020 -0400
+
+    Created a new Expo app
