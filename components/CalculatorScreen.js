@@ -36,11 +36,12 @@ let Flag =false;
 
 const CalculatorScreen = ({route,navigation})=>{
     console.log('In Calculator page: ');
-    console.log(route.params);
+    console.log(route.params.item);
 
     const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:''});
     const [dist,setDist] = useState();
     const [angl,setAngl] = useState();
+    const [DispArr,setDispArr] = useState([]);
 
     const [distanceUnit,setdistanceUnit]=useState("Km");
     const [bearingUnit,setbearingUnit] = useState("Deg");
@@ -102,6 +103,13 @@ const CalculatorScreen = ({route,navigation})=>{
 
     },[]);
 
+
+    useEffect(() => {
+        if (route.params?.item.state) {
+            updateState(route.params.item.state);
+       }
+        }, [route.params?.item.state]);
+  
 
     useEffect(() => {
         console.log('Profile: called anytime a specific state variable changes')
