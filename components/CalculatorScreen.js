@@ -3,8 +3,34 @@ import {StyleSheet, Text, View,TextInput,Keyboard, TouchableOpacity} from 'react
 import {Button,Input} from 'react-native-elements';
 import {computeDistance,computeBearing, check_error} from '../Methods';
 import { AntDesign } from '@expo/vector-icons';
+import { color } from 'react-native-reanimated';
+import {initHistorysDB, storeHistoryItem,setupHistoryListener,deleteHistory} from '../Helper/fb-History';
 
 
+const DATA = [
+    {
+      LatA:45.999,
+      LonA:12.345,
+      LatB:45.7869,
+      LonB:12.567
+    },
+
+    {
+        LatA:43.499,
+        LonA:10.345,
+        LatB:47.7869,
+        LonB:11.567
+      },
+  
+      {
+        LatA:5.999,
+        LonA:1.345,
+        LatB:5.7869,
+        LonB:1.567
+      },
+  
+        
+  ];
 
 let Flag =false;
 
@@ -54,13 +80,29 @@ const CalculatorScreen = ({route,navigation})=>{
                     <TouchableOpacity onPress = {()=>{navigation.navigate('Settings',{distanceUnit,bearingUnit})}}>
                     <AntDesign style={{marginRight:20}} name="setting" size={24} color="white" />
                     </TouchableOpacity>
-            )
+            ),
+
+            headerLeft:()=>(
+                <TouchableOpacity onPress = {()=>{navigation.navigate('History')}}>
+                <Text >History</Text>
+                </TouchableOpacity>
+        )
         }
 
 
     );
    
-    
+   
+    useEffect(()=>{
+        try{
+            initHistorysDB();
+        }catch(err){
+            console.log(err);
+        }
+
+    },[]);
+
+
     useEffect(() => {
         console.log('Profile: called anytime a specific state variable changes')
         if (route.params?.distanceUnit) {
@@ -152,6 +194,8 @@ const CalculatorScreen = ({route,navigation})=>{
                     
                    setDist(computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),distanceUnit));
                    setAngl(computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),bearingUnit));
+                   
+                   storeHistoryItem({state});
                    Keyboard.dismiss();
 
                 }
