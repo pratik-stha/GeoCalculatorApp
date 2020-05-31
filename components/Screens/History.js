@@ -1,32 +1,7 @@
 import React,{useState,useEffect} from 'react';
-import {View, StyleSheet,Text,TouchableOpacity, FlatList,SafeAreaView} from 'react-native';
-import { setupHistoryListener } from '../../Helper/fb-History';
+import {View, StyleSheet,Text,TouchableOpacity, FlatList,SafeAreaView,TouchableHighlight} from 'react-native';
+import {setupHistoryListener } from '../../Helper/fb-History';
 
-
-const DATA = [
-    {
-      LatA:45.999,
-      LonA:12.345,
-      LatB:45.7869,
-      LonB:12.567
-    },
-
-    {
-        LatA:43.499,
-        LonA:10.345,
-        LatB:47.7869,
-        LonB:11.567
-      },
-  
-      {
-        LatA:5.999,
-        LonA:1.345,
-        LatB:5.7869,
-        LonB:1.567
-      },
-  
-        
-  ];
 
 const HistoryScreen=({route,navigation})=>{
 
@@ -34,35 +9,42 @@ const HistoryScreen=({route,navigation})=>{
 
 
     useEffect(()=>{
-        try{
-            initHistorysDB();
-        }catch(err){
-            console.log(err);
-        }
-
+     
         setupHistoryListener((items)=>{setDataArr(items)});
 
     },[]);
 
+    const PopulateData=(item)=>{
+        {navigation.navigate('Geo Calculator',{item})};
+    };
 
     const Item=({index,item})=> {
-      console.log(item);
+      console.log("The output is: ",item.state.latA);
         return (
-          <View style={styles.item}>
-            <Text>Start:</Text>
-            <Text>End:</Text>
-            <Text>TimeStamp</Text>
-          </View>
+
+        <TouchableHighlight underlayColor='green' onPress={()=>PopulateData(item)}>
+               <View style={styles.item}>
+                <Text>Start: {item.state.latA} , {item.state.lonA}</Text>
+                <Text>End: {item.state.latB} , {item.state.lonB}</Text>
+                <Text>TimeStamp</Text>
+                </View>
+        </TouchableHighlight>
+  
+          
         );
       }
       
     return (
         <SafeAreaView style={styles.container}>
-        <FlatList
+             
+         <FlatList
           data={DataArr}
           renderItem={Item}
           keyExtractor={item => item.id}
         />
+  
+
+ 
       </SafeAreaView>
     );
 }
@@ -80,6 +62,7 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 45,
     },
+
   });
 
 export default HistoryScreen;
