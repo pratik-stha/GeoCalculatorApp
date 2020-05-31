@@ -7,36 +7,11 @@ import { color } from 'react-native-reanimated';
 import {initHistorysDB, storeHistoryItem,setupHistoryListener,deleteHistory} from '../Helper/fb-History';
 
 
-const DATA = [
-    {
-      LatA:45.999,
-      LonA:12.345,
-      LatB:45.7869,
-      LonB:12.567
-    },
-
-    {
-        LatA:43.499,
-        LonA:10.345,
-        LatB:47.7869,
-        LonB:11.567
-      },
-  
-      {
-        LatA:5.999,
-        LonA:1.345,
-        LatB:5.7869,
-        LonB:1.567
-      },
-  
-        
-  ];
-
 let Flag =false;
 
 const CalculatorScreen = ({route,navigation})=>{
     console.log('In Calculator page: ');
-    console.log(route.params.item);
+    console.log(route.params);
 
     const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:''});
     const [dist,setDist] = useState();
