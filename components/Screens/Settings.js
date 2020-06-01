@@ -8,6 +8,9 @@ const SettingScreen=({route,navigation})=>{
   
   console.log('In Settings page:');
   console.log(route.params);
+  if(route.params){
+    console.log(Object.keys(route.params));
+  }
   
   const initialDistanceUnit = route.params.distanceUnit;
   const initialBearingUnit = route.params.bearingUnit;

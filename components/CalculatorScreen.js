@@ -12,18 +12,17 @@ let Flag =false;
 const CalculatorScreen = ({route,navigation})=>{
     console.log('In Calculator page: ');
     console.log(route.params);
-
+ 
+      
     const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:''});
     const [dist,setDist] = useState();
     const [angl,setAngl] = useState();
-    const [DispArr,setDispArr] = useState([]);
+   
 
     const [distanceUnit,setdistanceUnit]=useState("Km");
     const [bearingUnit,setbearingUnit] = useState("Deg");
 
-   
- 
-
+    
     const updateState =(vals)=>{
        
         setState(
@@ -78,14 +77,6 @@ const CalculatorScreen = ({route,navigation})=>{
 
     },[]);
 
-
-    useEffect(() => {
-        if (route.params?.item.state) {
-            updateState(route.params.item.state);
-       }
-        }, [route.params?.item.state]);
-  
-
     useEffect(() => {
         console.log('Profile: called anytime a specific state variable changes')
         if (route.params?.distanceUnit) {
@@ -94,14 +85,27 @@ const CalculatorScreen = ({route,navigation})=>{
         if (route.params?.bearingUnit) {
           setbearingUnit(route.params.bearingUnit);
         }
+       // if (route.params?.item.state) {
+          //  updateState(route.params.item.state);
+       //}
             Flag = true;
             console.log(Flag);
          }, [route.params?.distanceUnit, route.params?.bearingUnit]);
   
+   
+    useEffect(() => {
+         if(route.params?.item.state){
+
+          updateState(route.params.item.state);
+       
+         }
+    }, [route.params?.item.state]);
+
+    
+   
     console.log(Flag);     
      if(Flag){
         if(check_error(state.latA,state.latB,state.lonA,state.lonB)){
-                     
                     
             setDist(computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),distanceUnit));
             setAngl(computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),bearingUnit));

@@ -7,6 +7,7 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
+fb-configuration.js
 web-build/
 web-report/
 
