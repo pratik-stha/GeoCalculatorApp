@@ -8,10 +8,7 @@ const SettingScreen=({route,navigation})=>{
   
   console.log('In Settings page:');
   console.log(route.params);
-  if(route.params){
-    console.log(Object.keys(route.params));
-  }
-  
+ 
   const initialDistanceUnit = route.params.distanceUnit;
   const initialBearingUnit = route.params.bearingUnit;
   
@@ -38,7 +35,7 @@ const SettingScreen=({route,navigation})=>{
         {
             
             headerLeft:()=>(
-                <TouchableOpacity onPress = {()=>{navigation.navigate('Geo Calculator',{distanceUnit,bearingUnit})}}>
+            <TouchableOpacity onPress = {()=>{navigation.navigate('Geo Calculator',{distanceUnit,bearingUnit})}}>
              <AntDesign style={{marginLeft:20}} name="save" size={24} color="white" />
                </TouchableOpacity>
             ),

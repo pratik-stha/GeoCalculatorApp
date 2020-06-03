@@ -1,7 +1,11 @@
 import React,{useState,useEffect} from 'react';
 import {View, StyleSheet,Text,TouchableOpacity, FlatList,SafeAreaView,TouchableHighlight} from 'react-native';
 import {setupHistoryListener } from '../../Helper/fb-History';
+import {timestamp} from 'react-timestamp';
 
+
+
+var currentDate = new Date();
 
 const HistoryScreen=({route,navigation})=>{
 
@@ -14,19 +18,35 @@ const HistoryScreen=({route,navigation})=>{
 
     },[]);
 
-    const PopulateData=(item)=>{
-        {navigation.navigate('Geo Calculator',{item})};
+    const PopulateData=(val)=>{
+        {navigation.navigate('Geo Calculator',{val})};
     };
+
+    function getTime(){
+
+      var timestamp = Date.now(); 
+      date = new Date(timestamp * 1000),
+      datevalues = [
+       date.getFullYear(),
+      date.getMonth()+1,
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds(),
+  ];
+return(datevalues); 
+   //   return times;
+    }
 
     const Item=({index,item})=> {
       console.log("The output is: ",item.state.latA);
         return (
 
-        <TouchableHighlight underlayColor='green' onPress={()=>PopulateData(item)}>
+        <TouchableHighlight underlayColor='green' onPress={()=>PopulateData(item.state)}>
                <View style={styles.item}>
                 <Text>Start: {item.state.latA} , {item.state.lonA}</Text>
                 <Text>End: {item.state.latB} , {item.state.lonB}</Text>
-                <Text>TimeStamp</Text>
+                 <Text>Timstamp: {getTime()}</Text>
                 </View>
         </TouchableHighlight>
   

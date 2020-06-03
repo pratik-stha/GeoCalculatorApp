@@ -11,7 +11,7 @@ let Flag =false;
 
 const CalculatorScreen = ({route,navigation})=>{
     console.log('In Calculator page: ');
-    console.log(route.params);
+    //console.log(route.params);
  
       
     const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:''});
@@ -77,33 +77,39 @@ const CalculatorScreen = ({route,navigation})=>{
 
     },[]);
 
-    useEffect(() => {
-        console.log('Profile: called anytime a specific state variable changes')
+
+     useEffect(() => {
+        //console.log('Profile: called anytime a specific state variable changes')
+        console.log('Useeffect 1: ',route.params);
         if (route.params?.distanceUnit) {
           setdistanceUnit(route.params.distanceUnit)
         }
         if (route.params?.bearingUnit) {
           setbearingUnit(route.params.bearingUnit);
         }
-       // if (route.params?.item.state) {
-          //  updateState(route.params.item.state);
-       //}
+        if(route.params?.val){
+            updateState(route.params.val);
+       }
             Flag = true;
-            console.log(Flag);
-         }, [route.params?.distanceUnit, route.params?.bearingUnit]);
-  
+           // console.log(Flag);
+         }, [route.params?.distanceUnit, route.params?.val]);
    
-    useEffect(() => {
-         if(route.params?.item.state){
+   
+  /*   useEffect(() => {
+        console.log('UseEffect 2: ',route.params);
+         if(route.params){
 
-          updateState(route.params.item.state);
+          //updateState(route.params.item.state);
        
          }
-    }, [route.params?.item.state]);
+    }, [route.params]);
 
-    
+    */ 
    
-    console.log(Flag);     
+   // console.log(Flag);     
+
+
+
      if(Flag){
         if(check_error(state.latA,state.latB,state.lonA,state.lonB)){
                     
@@ -117,11 +123,16 @@ const CalculatorScreen = ({route,navigation})=>{
             setAngl('INVALID');
          Keyboard.dismiss();
          }
-        console.log(distanceUnit,bearingUnit);
+       // console.log(distanceUnit,bearingUnit);
         Flag = false;
     }  
 
+    function getTime(){
 
+        var d = new Date();
+        var n = d.toString();
+        return(n); 
+      }
 
     return(
         <View style={styles.container}>
@@ -182,6 +193,7 @@ const CalculatorScreen = ({route,navigation})=>{
                    setDist(computeDistance(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),distanceUnit));
                    setAngl(computeBearing(parseFloat(state.latA),parseFloat(state.lonA),parseFloat(state.latB),parseFloat(state.lonB),bearingUnit));
                    
+                   Object.assign(state,{timestamp: getTime()});
                    storeHistoryItem({state});
                    Keyboard.dismiss();
 
