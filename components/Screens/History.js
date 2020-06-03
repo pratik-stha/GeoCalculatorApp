@@ -22,21 +22,6 @@ const HistoryScreen=({route,navigation})=>{
         {navigation.navigate('Geo Calculator',{val})};
     };
 
-    function getTime(){
-
-      var timestamp = Date.now(); 
-      date = new Date(timestamp * 1000),
-      datevalues = [
-       date.getFullYear(),
-      date.getMonth()+1,
-      date.getDate(),
-      date.getHours(),
-      date.getMinutes(),
-      date.getSeconds(),
-  ];
-return(datevalues); 
-   //   return times;
-    }
 
     const Item=({index,item})=> {
       console.log("The output is: ",item.state.latA);
@@ -46,7 +31,7 @@ return(datevalues);
                <View style={styles.item}>
                 <Text>Start: {item.state.latA} , {item.state.lonA}</Text>
                 <Text>End: {item.state.latB} , {item.state.lonB}</Text>
-                 <Text>Timstamp: {getTime()}</Text>
+                <Text>Timstamp:{item.state.timestamp}</Text>
                 </View>
         </TouchableHighlight>
   
