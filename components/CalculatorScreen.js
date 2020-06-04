@@ -197,7 +197,7 @@ const CalculatorScreen = ({route,navigation})=>{
 
           <View style={styles.clearButton}>
             <Button title = "Clear"
-                    style = {{width:20}}
+                    //style = {{width:20}}
                     onPress = {()=>
                     { 
                             updateState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});
