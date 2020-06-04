@@ -4,6 +4,7 @@ import {Button,Input} from 'react-native-elements';
 import {computeDistance,computeBearing, check_error} from '../Methods';
 import { AntDesign } from '@expo/vector-icons';
 import { color } from 'react-native-reanimated';
+import { Fontisto } from '@expo/vector-icons';
 import {initHistorysDB, storeHistoryItem,setupHistoryListener,deleteHistory} from '../Helper/fb-History';
 
 
@@ -59,7 +60,7 @@ const CalculatorScreen = ({route,navigation})=>{
 
             headerLeft:()=>(
                 <TouchableOpacity onPress = {()=>{navigation.navigate('History')}}>
-                <Text >History</Text>
+                <Fontisto style={{marginLeft:20}} name="history" size={24} color="white" size={24} />
                 </TouchableOpacity>
         )
         }
@@ -95,19 +96,6 @@ const CalculatorScreen = ({route,navigation})=>{
          }, [route.params?.distanceUnit, route.params?.val]);
    
    
-  /*   useEffect(() => {
-        console.log('UseEffect 2: ',route.params);
-         if(route.params){
-
-          //updateState(route.params.item.state);
-       
-         }
-    }, [route.params]);
-
-    */ 
-   
-   // console.log(Flag);     
-
 
 
      if(Flag){
@@ -123,7 +111,6 @@ const CalculatorScreen = ({route,navigation})=>{
             setAngl('INVALID');
          Keyboard.dismiss();
          }
-       // console.log(distanceUnit,bearingUnit);
         Flag = false;
     }  
 

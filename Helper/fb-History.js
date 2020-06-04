@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import 'firebase/database';
-import {firebaseConfig} from './fb-configuration';
+import {firebaseConfig} from './fb-configurations';
 
 export function initHistorysDB(){
 
