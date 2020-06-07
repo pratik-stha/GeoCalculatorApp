@@ -73,18 +73,19 @@ const CalculatorScreen = ({route,navigation})=>{
 
     }
 
+   
     const RenderWeather = ({val}) => {
         if (val.ic === '') {
             return <View></View>;
           } else {
           return (
-        <View style={{height:55, marginTop:20,marginLeft:10,marginRight:10,borderRadius:25, backgroundColor:'#42e9f5',flexDirection:'row'}}>
+        <View style={{height:55, marginTop:10,marginLeft:10,marginRight:10,borderRadius:25, backgroundColor:'#42e9f5',flexDirection:'row'}}>
          <Image
            style={{paddingLeft:30, width: 80, height: 80 }}
            source={ICONS['img' + val.ic]}
          />
          <View >
-           <Text style={{ fontSize: 26, fontWeight: 'bold'}}>{val.tem} F  </Text>
+           <Text style={{ fontSize: 26, fontWeight: 'bold'}}>{Math.round(val.tem,0)} F  </Text>
            <Text> {val.des} </Text>
          </View>
        </View>

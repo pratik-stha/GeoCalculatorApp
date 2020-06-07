@@ -30,7 +30,7 @@ Serv.interceptors.request.use(
   
   export const getWeatherData = async (pointa,pointb,callback) => {
     const response = await Serv.get(
-      `?lat=${pointa}&lon=${pointb}&appid=77f53b6883fc37e766f43eff7a1bcf13`,
+      `?lat=${pointa}&lon=${pointb}&units=imperial&appid=77f53b6883fc37e766f43eff7a1bcf13`,
     )
     callback(response.data);
   };
