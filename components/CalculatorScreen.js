@@ -1,14 +1,33 @@
 import React,{useState, useEffect}from 'react';
-import {StyleSheet, Text, View,TextInput,Keyboard, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View,TextInput,Keyboard, TouchableOpacity, Image} from 'react-native';
 import {Button,Input} from 'react-native-elements';
 import {computeDistance,computeBearing, check_error} from '../Methods';
 import { AntDesign } from '@expo/vector-icons';
 import { color } from 'react-native-reanimated';
 import { Fontisto } from '@expo/vector-icons';
-import {initHistorysDB, storeHistoryItem,setupHistoryListener,deleteHistory} from '../Helper/fb-History';
+import { setpoint, getWeatherData } from '../API/Server';
+import {initHistorysDB,storeHistoryItem} from'../Helper/fb-History';
 
 
 let Flag =false;
+const ICONS = {
+    img01d: require('../assets/img01d.png'),
+    img01n: require('../assets/img01n.png'),
+    img02d: require('../assets/img02d.png'),
+    img02n: require('../assets/img02n.png'),
+    img03d: require('../assets/img03d.png'),
+    img03n: require('../assets/img03n.png'),
+    img04d: require('../assets/img04d.png'),
+    img04n: require('../assets/img04n.png'),
+    img09d: require('../assets/img09d.png'),
+    img09n: require('../assets/img09n.png'),
+    img10d: require('../assets/img10d.png'),
+    img10n: require('../assets/img10n.png'),
+    img13d: require('../assets/img13d.png'),
+    img13n: require('../assets/img13n.png'),
+    img50d: require('../assets/img13d.png'),
+    img50n: require('../assets/img13n.png'),
+};
 
 const CalculatorScreen = ({route,navigation})=>{
     console.log('In Calculator page: ');
@@ -18,8 +37,14 @@ const CalculatorScreen = ({route,navigation})=>{
     const [state,setState] = useState({latA:'',latB:'',lonA:'',lonB:''});
     const [dist,setDist] = useState();
     const [angl,setAngl] = useState();
-   
+    
+    const [valueA,setValueA] = useState();
+    const [valueB,setValueB] = useState();
+    
 
+    const [parametersA,setparametersA] = useState({des:'', ic:'', tem:''}); 
+    const [parametersB,setparametersB] = useState({des:'', ic:'', tem:''}); 
+  
     const [distanceUnit,setdistanceUnit]=useState("Km");
     const [bearingUnit,setbearingUnit] = useState("Deg");
 
@@ -48,7 +73,25 @@ const CalculatorScreen = ({route,navigation})=>{
 
     }
 
-  
+    const RenderWeather = ({val}) => {
+        if (val.ic === '') {
+            return <View></View>;
+          } else {
+          return (
+        <View style={{height:55, marginTop:20,marginLeft:10,marginRight:10,borderRadius:25, backgroundColor:'#42e9f5',flexDirection:'row'}}>
+         <Image
+           style={{paddingLeft:30, width: 80, height: 80 }}
+           source={ICONS['img' + val.ic]}
+         />
+         <View >
+           <Text style={{ fontSize: 26, fontWeight: 'bold'}}>{val.tem} F  </Text>
+           <Text> {val.des} </Text>
+         </View>
+       </View>
+          );
+          }
+      };
+      
 
     navigation.setOptions(
         {
@@ -67,14 +110,43 @@ const CalculatorScreen = ({route,navigation})=>{
 
 
     );
-   
-   
+      
+    useEffect(()=>{
+        if(valueA){
+           
+            const {main} = valueA;
+            var temt=main.temp;
+            console.log(temt);
+            const{weather:[{description,icon}]} = valueA;
+            console.log(description,icon)
+            setparametersA({des:`${description}`,ic:`${icon}`,tem:`${temt}`});
+
+
+       }
+   },[valueA]);
+
+   useEffect(()=>{
+    if(valueB){
+       
+        const {main} = valueB;
+        var temt=main.temp;
+        console.log(temt);
+        const{weather:[{description,icon}]} = valueB;
+        console.log(description,icon)
+        setparametersB({des:`${description}`,ic:`${icon}`,tem:`${temt}`});
+
+
+   }
+},[valueB]);
+
+
     useEffect(()=>{
         try{
             initHistorysDB();
         }catch(err){
             console.log(err);
         }
+        
 
     },[]);
 
@@ -95,7 +167,7 @@ const CalculatorScreen = ({route,navigation})=>{
            // console.log(Flag);
          }, [route.params?.distanceUnit, route.params?.val]);
    
-   
+    
 
 
      if(Flag){
@@ -182,6 +254,16 @@ const CalculatorScreen = ({route,navigation})=>{
                    
                    Object.assign(state,{timestamp: getTime()});
                    storeHistoryItem({state});
+                   getWeatherData(state.latA,state.lonA,(data) => {
+                   setValueA(data);
+                 
+                    });
+
+                    getWeatherData(state.latB,state.lonB,(data) => {
+                    setValueB(data);
+                      
+                         });
+
                    Keyboard.dismiss();
 
                 }
@@ -190,7 +272,8 @@ const CalculatorScreen = ({route,navigation})=>{
                    setAngl('INVALID');
                 Keyboard.dismiss();
                 }
-               
+
+
             }
            } />
            </View>
@@ -200,7 +283,7 @@ const CalculatorScreen = ({route,navigation})=>{
                     //style = {{width:20}}
                     onPress = {()=>
                     { 
-                            updateState({latA:'',latB:'',lonA:'',lonB:'',DistanceResult:'',BearingResult:''});
+                            updateState({latA:'',latB:'',lonA:'',lonB:''});
                             setDist();
                             setAngl();
                             Keyboard.dismiss();           
@@ -221,8 +304,11 @@ const CalculatorScreen = ({route,navigation})=>{
                               
                             
             </View>
-                 <Text style={{textAlign:'center',marginTop:10}}>The selected units are {distanceUnit} and {bearingUnit}</Text>
-        </View>
+                 <View>
+                 <RenderWeather val={parametersA}/>
+                 <RenderWeather val={parametersB}/>
+                 </View>
+       </View>
     );
 
 };
@@ -257,6 +343,12 @@ const styles = StyleSheet.create(
         marginTop:15,
         marginLeft:25,
         marginRight:25,
+    },
+
+    weathestyle:{
+        flexDirection:'row',
+        flex:1,
+
     }
     
 
