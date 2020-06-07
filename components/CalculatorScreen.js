@@ -79,12 +79,12 @@ const CalculatorScreen = ({route,navigation})=>{
             return <View></View>;
           } else {
           return (
-        <View style={{height:55, marginTop:10,marginLeft:10,marginRight:10,borderRadius:25, backgroundColor:'#42e9f5',flexDirection:'row'}}>
+        <View style={{height:65, marginTop:10,marginLeft:10,marginRight:10,borderRadius:25, backgroundColor:'#42e9f5',flexDirection:'row'}}>
          <Image
-           style={{paddingLeft:30, width: 80, height: 80 }}
+           style={{paddingLeft:30, width: 80, height: 80}}
            source={ICONS['img' + val.ic]}
          />
-         <View >
+         <View style={{paddingLeft:25}}>
            <Text style={{ fontSize: 26, fontWeight: 'bold'}}>{Math.round(val.tem,0)} F  </Text>
            <Text> {val.des} </Text>
          </View>
