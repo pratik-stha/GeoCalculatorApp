@@ -286,6 +286,8 @@ const CalculatorScreen = ({route,navigation})=>{
                             updateState({latA:'',latB:'',lonA:'',lonB:''});
                             setDist();
                             setAngl();
+                            setparametersA({des:'',ic:'',tem:''});
+                            setparametersB({des:'',ic:'',tem:''});
                             Keyboard.dismiss();           
                     }
                 } />
